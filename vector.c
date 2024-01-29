@@ -52,3 +52,12 @@ vector_add(struct vector *vec, const void *item)
 	memcpy(IDX2PTR(vec, vec->len), item, vec->size);
 	vec->len++;
 }
+
+void *
+vector_get(struct vector *vec, size_t idx)
+{
+	if (idx >= vec->len)
+		return NULL;
+
+	return IDX2PTR(vec, idx);
+}
