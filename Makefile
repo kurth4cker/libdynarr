@@ -22,13 +22,13 @@ clean:
 	rm -f $(LIB) *.o
 
 install: $(LIB) $(HDR)
-	mkdir -p $(LIBDIR) $(INCDIR)
-	cp -f $(LIB) $(LIBDIR)
-	cp -f $(HDR) $(INCDIR)
+	mkdir -p $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCDIR)
+	cp -f $(LIB) $(DESTDIR)$(LIBDIR)
+	cp -f $(HDR) $(DESTDIR)$(INCDIR)
 
 uninstall:
-	rm -f $(LIBDIR)/$(LIB)
-	rm -f $(INCDIR)/$(HDR)
+	rm -f $(DESTDIR)$(LIBDIR)/$(LIB)
+	rm -f $(DESTDIR)$(INCDIR)/$(HDR)
 
 .SUFFIXES: .c .o
 .c.o:
