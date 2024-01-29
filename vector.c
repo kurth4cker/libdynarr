@@ -24,7 +24,7 @@ vector_new(size_t sz)
 		return NULL;
 
 	vec->size = sz;
-	vec->nmem = 0;
+	vec->len = 0;
 	vec->capacity = 1024;
 
 	vec->data = calloc(vec->capacity, vec->size);
@@ -46,9 +46,9 @@ vector_free(struct vector *vec)
 void
 vector_add(struct vector *vec, const void *item)
 {
-	if (vec->nmem >= vec->capacity)
+	if (vec->len > vec->capacity)
 		extend(vec);
 
-	memcpy(IDX2PTR(vec, vec->nmem), item, vec->size);
-	vec->nmem++;
+	memcpy(IDX2PTR(vec, vec->len), item, vec->size);
+	vec->len++;
 }

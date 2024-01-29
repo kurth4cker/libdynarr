@@ -5,7 +5,7 @@
 struct vector {
 	void *data;
 	size_t size; /* sizeof each element */
-	size_t nmem; /* number of elements */
+	size_t len; /* number of elements */
 	size_t capacity; /* element capacity */
 };
 
