@@ -52,13 +52,3 @@ vector_add(struct vector *vec, const void *item)
 	memcpy(IDX2PTR(vec, vec->nmem), item, vec->size);
 	vec->nmem++;
 }
-
-void
-vector_rem(struct vector *vec, size_t idx)
-{
-	vec->nmem--;
-	if (idx >= vec->nmem)
-		return;
-
-	memcpy(IDX2PTR(vec, idx), IDX2PTR(vec, vec->nmem), vec->size);
-}
