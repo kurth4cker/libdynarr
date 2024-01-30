@@ -15,6 +15,6 @@ void vector_free(struct vector *);
 void vector_add(struct vector *, const void *);
 void vector_rem(struct vector *, const void *);
 
-void *vector_get(struct vector *, size_t);
+void *vector_get(const struct vector *, size_t);
 
 #endif /* VECTOR_H */

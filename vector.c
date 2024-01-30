@@ -7,7 +7,9 @@
 
 #include "vector.h"
 
-#define IDX2PTR(vec,idx) ((char *)((vec)->data) + (vec)->size * (idx))
+#define NTH(idx) ((char *)vec->data + vec->size * (idx))
+
+static void extend(struct vector *);
 
 static void
 extend(struct vector *vec)
@@ -49,7 +51,7 @@ vector_add(struct vector *vec, const void *item)
 	if (vec->len > vec->capacity)
 		extend(vec);
 
-	memcpy(IDX2PTR(vec, vec->len), item, vec->size);
+	memcpy(NTH(vec->len), item, vec->size);
 	vec->len++;
 }
 
@@ -60,17 +62,16 @@ vector_rem(struct vector *vec, const void *item)
 	for (size_t i = 0; i < vec->len; i++) {
 		if (memcmp(item, vector_get(vec, i), vec->size) != 0)
 			continue;
-		memmove(vector_get(vec, i), vector_get(vec, i + 1),
-			(vec->len - i - 1) * vec->size);
+		memmove(NTH(i), NTH(i + 1), (vec->len - i - 1) * vec->size);
 		vec->len--;
 	}
 }
 
 void *
-vector_get(struct vector *vec, size_t idx)
+vector_get(const struct vector *vec, size_t idx)
 {
 	if (idx >= vec->len)
 		return NULL;
 
-	return IDX2PTR(vec, idx);
+	return NTH(idx);
 }
