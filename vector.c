@@ -14,7 +14,7 @@ static void extend(struct vector *);
 static void
 extend(struct vector *vec)
 {
-	vec->capacity *= 1.8 + 1;
+	vec->capacity <<= 1;
 	vec->data = realloc(vec->data, vec->size * vec->capacity);
 }
 
