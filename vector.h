@@ -13,6 +13,8 @@ struct vector *vector_new(size_t);
 void vector_free(struct vector *);
 
 void vector_add(struct vector *, const void *);
+void vector_rem(struct vector *, const void *);
+
 void *vector_get(struct vector *, size_t);
 
 #endif /* VECTOR_H */
