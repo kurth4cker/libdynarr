@@ -11,6 +11,8 @@
 
 static void extend(struct vector *);
 
+static const size_t capacity = 1 << 5;
+
 static void
 extend(struct vector *vec)
 {
@@ -18,19 +20,28 @@ extend(struct vector *vec)
 	vec->data = realloc(vec->data, vec->size * vec->capacity);
 }
 
+int
+vector_init(struct vector *vec, size_t size)
+{
+	vec->data = calloc(capacity, size);
+	if (!vec->data)
+		return -1;
+
+	vec->size = size;
+	vec->capacity = capacity;
+	vec->len = 0;
+
+	return 0;
+}
+
 struct vector *
-vector_new(size_t sz)
+vector_new(size_t size)
 {
 	struct vector *vec = malloc(sizeof(struct vector));
 	if (!vec)
 		return NULL;
 
-	vec->size = sz;
-	vec->len = 0;
-	vec->capacity = 1024;
-
-	vec->data = calloc(vec->capacity, vec->size);
-	if (!vec->data) {
+	if (vector_init(vec, size) == -1) {
 		free(vec);
 		return NULL;
 	}

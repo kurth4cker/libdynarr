@@ -9,6 +9,7 @@ struct vector {
 	size_t capacity; /* element capacity */
 };
 
+int vector_init(struct vector *, size_t);
 struct vector *vector_new(size_t);
 void vector_free(struct vector *);
 
