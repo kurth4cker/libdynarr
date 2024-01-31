@@ -66,18 +66,6 @@ vector_add(struct vector *vec, const void *item)
 	vec->len++;
 }
 
-/* NEEDS FIX */
-void
-vector_rem(struct vector *vec, const void *item)
-{
-	for (size_t i = 0; i < vec->len; i++) {
-		if (memcmp(item, vector_get(vec, i), vec->size) != 0)
-			continue;
-		memmove(NTH(i), NTH(i + 1), (vec->len - i - 1) * vec->size);
-		vec->len--;
-	}
-}
-
 void *
 vector_get(const struct vector *vec, size_t idx)
 {
