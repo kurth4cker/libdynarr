@@ -1,5 +1,5 @@
-# libvector
-Simple vector (dynamic array) implementation in/for C. [WIP]
+# libdynarr
+Simple dynamic array implementation in C. [WIP]
 
 ## Installation
 Run `make` and then `make install`. You can set **PREFIX** and **DESTDIR**

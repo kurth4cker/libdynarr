@@ -6,13 +6,12 @@ PREFIX = /usr/local
 LIBDIR = $(PREFIX)/lib
 INCDIR = $(PREFIX)/include
 
-LIB = libvector.a
-HDR = vector.h
+LIB = libdynarr.a
+HDR = dynarr.h
 
-OBJ = vector.o
+OBJ =
 
 all: $(LIB)
-vector.o: vector.h
 
 $(LIB): $(OBJ)
 	$(AR) -rc $@ $(OBJ)
