@@ -10,3 +10,4 @@ struct dynarr {
 };
 
 int dynarr_init(struct dynarr *, size_t);
+void dynarr_term(struct dynarr *);

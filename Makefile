@@ -9,7 +9,7 @@ INCDIR = $(PREFIX)/include
 LIB = libdynarr.a
 HDR = dynarr.h
 
-OBJ = init.o
+OBJ = init.o term.o
 
 all: $(LIB)
 
@@ -35,3 +35,5 @@ uninstall:
 .SUFFIXES: .c .o
 .c.o:
 	$(CC) $(CFLAGS) -c $<
+
+.PHONY: all clean check test install uninstall
