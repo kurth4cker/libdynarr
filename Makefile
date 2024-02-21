@@ -20,6 +20,9 @@ $(LIB): $(OBJ)
 clean:
 	rm -f $(LIB) *.o
 
+check test: $(LIB) $(HDR)
+	@make -C test
+
 install: $(LIB) $(HDR)
 	mkdir -p $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCDIR)
 	cp -f $(LIB) $(DESTDIR)$(LIBDIR)
