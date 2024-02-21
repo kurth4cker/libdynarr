@@ -2,17 +2,16 @@
 Simple dynamic array implementation in C. [WIP]
 
 ## Installation
-Run `make` and then `make install`. You can set **PREFIX** and **DESTDIR**
-for `make install`. Here are examples.
+Just simple and portable Makefile. Run `make` for compile and `make install`
+for install.
 
-	# Install user home
-	make install PREFIX=$HOME/.local
+Here are some customization options:
 
-	# Install library files to lib64
-	make install LIBDIR=/usr/local/lib64
-
-	# Setup destdir to $PWD instead of system's root directory
-	make install DESTDIR=$PWD
+* CC, AR, RANLIB: Standard programs for building a C library.
+* PREFIX: Installation prefix. (default: /usr/local)
+* LIBDIR, INCDIR: Very specific installation locations. (default: `$PREFIX/lib`
+  and `$PREFIX/include`)
+* CFLAGS: Flags passed to $CC.
 
 ## Copying
 Licensed under the terms of GPL-3.0-or-later. See file COPYING for details.
