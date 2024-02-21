@@ -8,3 +8,5 @@ struct dynarr {
 	size_t len; /* number of elements */
 	size_t capacity; /* element capacity */
 };
+
+int dynarr_init(struct dynarr *, size_t);

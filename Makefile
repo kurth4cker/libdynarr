@@ -9,7 +9,7 @@ INCDIR = $(PREFIX)/include
 LIB = libdynarr.a
 HDR = dynarr.h
 
-OBJ =
+OBJ = init.o
 
 all: $(LIB)
 
