@@ -27,12 +27,23 @@ dynarr_init(struct dynarr *vec, size_t size)
 	return 0;
 }
 
+/* TODO: implement */
 int
 dynarr_push(struct dynarr *vec, const void *obj)
 {
 	(void)vec;
 	(void)obj;
 	return 0;
+}
+
+/* TODO: implement */
+int
+dynarr_set(struct dynarr *vec, size_t idx, const void *obj)
+{
+	(void)vec;
+	(void)idx;
+	(void)obj;
+	return -2;
 }
 
 void
