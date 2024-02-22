@@ -21,7 +21,7 @@ clean:
 	rm -f $(LIB) *.o
 
 check test: $(LIB) $(HDR)
-	@make -C test
+	@make -C tests
 
 install: $(LIB) $(HDR)
 	mkdir -p $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCDIR)
