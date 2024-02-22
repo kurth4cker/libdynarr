@@ -2,15 +2,6 @@
 
 #include "dynarr.h"
 
-void *
-dynarr_get(const struct dynarr *vec, size_t idx)
-{
-	if (idx >= vec->len)
-		return NULL;
-
-	return (char *)vec->data + idx * vec->size;
-}
-
 int
 dynarr_init(struct dynarr *vec, size_t size)
 {
@@ -34,16 +25,6 @@ dynarr_push(struct dynarr *vec, const void *obj)
 	(void)vec;
 	(void)obj;
 	return 0;
-}
-
-/* TODO: implement */
-int
-dynarr_set(struct dynarr *vec, size_t idx, const void *obj)
-{
-	(void)vec;
-	(void)idx;
-	(void)obj;
-	return -2;
 }
 
 void

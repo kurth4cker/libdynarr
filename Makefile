@@ -19,6 +19,7 @@ $(LIB): $(OBJ)
 
 clean:
 	rm -f $(LIB) *.o
+	@-make -C tests clean
 
 check test: $(LIB) $(HDR)
 	@make -C tests
