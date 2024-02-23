@@ -15,12 +15,6 @@ dynarr_init(struct dynarr *vec, size_t size)
 	vec->len = 0;
 	vec->capacity = initial_capacity;
 
-/* TODO: implement */
-int
-dynarr_push(struct dynarr *vec, const void *obj)
-{
-	(void)vec;
-	(void)obj;
 	return 0;
 }
 
