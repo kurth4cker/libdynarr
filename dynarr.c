@@ -2,21 +2,18 @@
 
 #include "dynarr.h"
 
+static size_t initial_capacity = 64;
+
 int
 dynarr_init(struct dynarr *vec, size_t size)
 {
-	static const size_t capacity = 64;
-
-	vec->data = calloc(64, size);
+	vec->data = calloc(initial_capacity, size);
 	if (!vec->data)
 		return -1;
 
 	vec->size = size;
 	vec->len = 0;
-	vec->capacity = capacity;
-
-	return 0;
-}
+	vec->capacity = initial_capacity;
 
 /* TODO: implement */
 int
