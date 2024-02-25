@@ -1,3 +1,3 @@
 [submodule "test"]
 	path = tests
-	url = git@git.sr.ht:~kurth4cker/libdynarr-test
+	url = git@git.sr.ht:~kurth4cker/libdynarr-tests
