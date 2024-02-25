@@ -18,6 +18,15 @@ dynarr_init(struct dynarr *vec, size_t size)
 	return 0;
 }
 
+/* TODO: implement */
+int
+dynarr_push(struct dynarr *vec, const void *obj)
+{
+	(vec);
+	(obj);
+	return -1;
+}
+
 void
 dynarr_term(struct dynarr *vec)
 {

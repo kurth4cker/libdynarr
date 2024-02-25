@@ -10,4 +10,5 @@ struct dynarr {
 };
 
 int dynarr_init(struct dynarr *, size_t);
+int dynarr_push(struct dynarr *, const void *); /* TODO: implement */
 void dynarr_term(struct dynarr *);
