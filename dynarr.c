@@ -4,6 +4,20 @@
 
 static size_t initial_capacity = 64;
 
+static int
+expand(struct dynarr *vec)
+{
+	const size_t capacity = vec->capacity + vec->capacity / 2 + 1;
+	void *data = realloc(vec->data, capacity);
+
+	if (!data)
+		return -1;
+
+	vec->data = data;
+	vec->capacity = capacity;
+	return 0;
+}
+
 int
 dynarr_init(struct dynarr *vec, size_t size)
 {
@@ -20,10 +34,20 @@ dynarr_init(struct dynarr *vec, size_t size)
 
 /* TODO: implement */
 int
+dynarr_insert(struct dynarr *vec, size_t idx, const void *obj)
+{
+	(void)vec;
+	(void)idx;
+	(void)obj;
+	return -1;
+}
+
+/* TODO: implement */
+int
 dynarr_push(struct dynarr *vec, const void *obj)
 {
-	(vec);
-	(obj);
+	(void)vec;
+	(void)obj;
 	return -1;
 }
 
