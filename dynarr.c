@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "dynarr.h"
 
@@ -32,14 +33,20 @@ dynarr_init(struct dynarr *vec, size_t size)
 	return 0;
 }
 
-/* TODO: implement */
 int
 dynarr_insert(struct dynarr *vec, size_t idx, const void *obj)
 {
-	(void)vec;
-	(void)idx;
-	(void)obj;
-	return -1;
+	char *ptr = vec->data;
+
+	if (vec->len >= vec->capacity && expand(vec) == -1)
+		return -1;
+
+	ptr += vec->size * idx;
+	memmove(ptr + vec->size, ptr, vec->len - idx);
+	memcpy(ptr, obj, vec->size);
+	vec->len++;
+
+	return 0;
 }
 
 /* TODO: implement */

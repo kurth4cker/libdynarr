@@ -10,6 +10,6 @@ struct dynarr {
 };
 
 int dynarr_init(struct dynarr *, size_t);
-int dynarr_insert(struct dynarr *, size_t, const void *); /* TODO: implement */
+int dynarr_insert(struct dynarr *, size_t, const void *);
 int dynarr_push(struct dynarr *, const void *); /* TODO: implement */
 void dynarr_term(struct dynarr *);
