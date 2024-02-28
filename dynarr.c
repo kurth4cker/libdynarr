@@ -19,6 +19,16 @@ expand(struct dynarr *vec)
 	return 0;
 }
 
+/* TODO: add tests */
+void *
+dynarr_get(const struct dynarr *vec, size_t idx)
+{
+	if (idx >= vec->len)
+		return NULL;
+
+	return (char *)vec->data + vec->size * idx;
+}
+
 int
 dynarr_init(struct dynarr *vec, size_t size)
 {
