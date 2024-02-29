@@ -59,13 +59,19 @@ dynarr_insert(struct dynarr *vec, size_t idx, const void *obj)
 	return 0;
 }
 
-/* TODO: implement */
 int
 dynarr_push(struct dynarr *vec, const void *obj)
 {
-	(void)vec;
-	(void)obj;
-	return -1;
+	char *ptr = vec->data;
+
+	if (vec->len >= vec->capacity && expand(vec) == -1)
+		return -1;
+
+	ptr += vec->size * vec->len;
+	memcpy(ptr, obj, vec->size);
+	vec->len++;
+
+	return 0;
 }
 
 void
