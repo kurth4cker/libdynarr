@@ -6,7 +6,8 @@ PREFIX = /usr/local
 LIBDIR = $(PREFIX)/lib
 INCDIR = $(PREFIX)/include
 
-TESTDIR = tests
+TESTDIR = ../libdynarr-tests
+TESTBIN = $(TESTDIR)/dynarr-test
 
 LIB = libdynarr.a
 HDR = dynarr.h
@@ -23,7 +24,11 @@ clean:
 	rm -f $(LIB) *.o
 	@-make -C $(TESTDIR) clean
 
-check test: $(LIB) $(HDR)
+$(TESTBIN): $(LIB) $(HDR)
+	@rm -f $(TESTBIN)
+	@make -C $(TESTDIR) LIBDYNARR_DIR=$$PWD
+
+check test: $(TESTBIN)
 	@make -C $(TESTDIR) test LIBDYNARR_DIR=$$PWD
 
 install: $(LIB) $(HDR)
