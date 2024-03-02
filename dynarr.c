@@ -29,6 +29,13 @@ dynarr_get(const struct dynarr *vec, size_t idx)
 	return (char *)vec->data + vec->size * idx;
 }
 
+void
+dynarr_free(struct dynarr *arr)
+{
+	free(arr->data);
+	free(arr);
+}
+
 int
 dynarr_init(struct dynarr *vec, size_t size)
 {
@@ -57,6 +64,22 @@ dynarr_insert(struct dynarr *vec, size_t idx, const void *obj)
 	vec->len++;
 
 	return 0;
+}
+
+/* TODO: add tests */
+struct dynarr *
+dynarr_new(size_t size)
+{
+	struct dynarr *arr = malloc(sizeof(struct dynarr));
+	if (!arr)
+		return NULL;
+
+	if (dynarr_init(arr, size) == -1) {
+		free(arr);
+		return NULL;
+	}
+
+	return arr;
 }
 
 int

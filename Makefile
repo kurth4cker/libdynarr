@@ -17,6 +17,7 @@ HDR = dynarr.h
 SRC = $(OBJ:.o=.c)
 
 all: $(LIB)
+dynarr.o: dynarr.h
 
 $(LIB): $(OBJ)
 	$(AR) -rc $@ $(OBJ)
