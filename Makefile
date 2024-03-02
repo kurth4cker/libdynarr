@@ -1,6 +1,7 @@
 CC = cc
 AR = ar
 RANLIB = ranlib
+CTAGS = ctags
 
 PREFIX = /usr/local
 LIBDIR = $(PREFIX)/lib
@@ -10,9 +11,10 @@ TESTDIR = ../libdynarr-tests
 TESTBIN = $(TESTDIR)/dynarr-test
 
 LIB = libdynarr.a
-HDR = dynarr.h
-
 OBJ = dynarr.o
+
+HDR = dynarr.h
+SRC = $(OBJ:.o=.c)
 
 all: $(LIB)
 
@@ -39,6 +41,9 @@ install: $(LIB) $(HDR)
 uninstall:
 	rm -f $(DESTDIR)$(LIBDIR)/$(LIB)
 	rm -f $(DESTDIR)$(INCDIR)/$(HDR)
+
+tags: $(SRC) $(HDR)
+	$(CTAGS) $(SRC) $(HDR)
 
 .SUFFIXES: .c .o
 .c.o:
