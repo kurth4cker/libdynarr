@@ -19,7 +19,6 @@ expand(struct dynarr *vec)
 	return 0;
 }
 
-/* TODO: add tests */
 void *
 dynarr_get(const struct dynarr *vec, size_t idx)
 {
@@ -66,7 +65,6 @@ dynarr_insert(struct dynarr *vec, size_t idx, const void *obj)
 	return 0;
 }
 
-/* TODO: add tests */
 struct dynarr *
 dynarr_new(size_t size)
 {
@@ -95,6 +93,14 @@ dynarr_push(struct dynarr *vec, const void *obj)
 	vec->len++;
 
 	return 0;
+}
+
+/* TODO: implement */
+void
+dynarr_remove(struct dynarr *arr, size_t idx)
+{
+	(void)arr;
+	(void)idx;
 }
 
 void
