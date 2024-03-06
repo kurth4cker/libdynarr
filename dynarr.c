@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -56,6 +57,19 @@ dynarr_new(size_t size)
 	arr->len = initial_array.len;
 	arr->size = size;
 	return arr;
+}
+
+int
+dynarr_pop(dynarr *arr)
+{
+	if (arr->len == 0)
+		return 0;
+
+	arr->len--;
+	void *dest = dynarr_get(arr, arr->len);
+	assert(dest != NULL);
+	memset(dest, 0, arr->size);
+	return 1;
 }
 
 int
