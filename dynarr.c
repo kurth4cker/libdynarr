@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "dynarr.h"
 
@@ -14,6 +15,12 @@ dynarr_free(struct dynarr *arr)
 {
 	free(arr->data);
 	free(arr);
+}
+
+void *
+dynarr_get(const struct dynarr *arr, size_t idx)
+{
+	return (char *)arr->data + idx * arr->size;
 }
 
 struct dynarr *
@@ -34,4 +41,11 @@ dynarr_new(size_t size)
 	arr->size = size;
 
 	return arr;
+}
+
+void
+dynarr_set(struct dynarr *arr, size_t idx, const void *obj)
+{
+	void *dest = dynarr_get(arr, idx);
+	memcpy(dest, obj, arr->size);
 }
