@@ -3,7 +3,7 @@
 
 #include "dynarr.h"
 
-static struct dynarr initial_array = {
+static dynarr initial_array = {
 	.data = NULL,
 	.size = 0,
 	.len = 0,
@@ -11,22 +11,22 @@ static struct dynarr initial_array = {
 };
 
 void
-dynarr_free(struct dynarr *arr)
+dynarr_free(dynarr *arr)
 {
 	free(arr->data);
 	free(arr);
 }
 
 void *
-dynarr_get(const struct dynarr *arr, size_t idx)
+dynarr_get(const dynarr *arr, size_t idx)
 {
 	return (char *)arr->data + idx * arr->size;
 }
 
-struct dynarr *
+dynarr *
 dynarr_new(size_t size)
 {
-	struct dynarr *arr = malloc(sizeof(struct dynarr));
+	dynarr *arr = malloc(sizeof(dynarr));
 	if (!arr)
 		return NULL;
 
@@ -44,7 +44,7 @@ dynarr_new(size_t size)
 }
 
 void
-dynarr_set(struct dynarr *arr, size_t idx, const void *obj)
+dynarr_set(dynarr *arr, size_t idx, const void *obj)
 {
 	void *dest = dynarr_get(arr, idx);
 	memcpy(dest, obj, arr->size);
