@@ -38,5 +38,3 @@ tags: $(SRC) $(HDR)
 .SUFFIXES: .c .o
 .c.o:
 	$(CC) $(CFLAGS) -c $<
-
-.PHONY: all clean check test install uninstall
