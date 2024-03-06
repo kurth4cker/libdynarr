@@ -1,3 +1,3 @@
 #!/bin/sh
 
-export CFLAGS="-g -Wall -Werror -Wextra"
+export CFLAGS="-g -UNDEBUG -Wall -Werror -Wextra"
