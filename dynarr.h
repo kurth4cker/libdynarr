@@ -16,3 +16,5 @@ void dynarr_free(dynarr *);
 
 void *dynarr_get(const dynarr *, size_t);
 void dynarr_set(dynarr *, size_t, const void *);
+
+int dynarr_push(dynarr *, const void *);

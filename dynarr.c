@@ -3,12 +3,28 @@
 
 #include "dynarr.h"
 
+#define CAPACITY_OK(arr, idx) (idx < arr->capacity)
+
 static dynarr initial_array = {
 	.data = NULL,
 	.size = 0,
 	.len = 0,
 	.capacity = 64,
 };
+
+static int
+expand(dynarr *arr)
+{
+	const size_t capacity = arr->capacity * 2;
+	void *data = realloc(arr->data, capacity);
+
+	if (!data)
+		return 0;
+
+	arr->data = data;
+	arr->capacity = capacity;
+	return 1;
+}
 
 void
 dynarr_free(dynarr *arr)
@@ -39,8 +55,20 @@ dynarr_new(size_t size)
 	arr->capacity = initial_array.capacity;
 	arr->len = initial_array.len;
 	arr->size = size;
-
 	return arr;
+}
+
+int
+dynarr_push(dynarr *arr, const void *obj)
+{
+	const size_t idx = arr->len;
+
+	if (!CAPACITY_OK(arr, idx) && !expand(arr))
+		return 0;
+
+	dynarr_set(arr, idx, obj);
+	arr->len++;
+	return 1;
 }
 
 void
