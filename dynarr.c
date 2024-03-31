@@ -48,6 +48,12 @@ move(struct dynarr *arr, size_t idx, ssize_t direction)
 	arr->len += direction;
 }
 
+int
+dynarr_capacity_ok(const struct dynarr *arr, size_t idx)
+{
+	return CAPACITY_OK(arr, idx);
+}
+
 void
 dynarr_free(struct dynarr *arr)
 {
@@ -75,6 +81,12 @@ dynarr_insert(struct dynarr *arr, size_t idx, const void *obj)
 	move(arr, idx, direction);
 	dynarr_set(arr, idx, obj);
 	return 1;
+}
+
+int
+dynarr_length_ok(const struct dynarr *arr, size_t idx)
+{
+	return LENGTH_OK(arr, idx);
 }
 
 struct dynarr *

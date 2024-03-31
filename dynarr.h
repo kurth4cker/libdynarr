@@ -21,3 +21,6 @@ int dynarr_pop(struct dynarr *);
 
 int dynarr_insert(struct dynarr *, size_t, const void *);
 void dynarr_remove(struct dynarr *, size_t);
+
+int dynarr_capacity_ok(const struct dynarr *, size_t);
+int dynarr_length_ok(const struct dynarr *, size_t);
