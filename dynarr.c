@@ -9,18 +9,18 @@
 #define CAPACITY_OK(arr, idx) ((idx) < (arr)->capacity)
 #define LENGTH_OK(arr, idx) ((idx) < (arr)->len)
 
-static dynarr initial_array = {
+static struct dynarr initial_array = {
 	.data = NULL,
 	.size = 0,
 	.len = 0,
 	.capacity = 64,
 };
 
-static int expand(dynarr *);
-static void move(dynarr *, size_t, ssize_t);
+static int expand(struct dynarr *);
+static void move(struct dynarr *, size_t, ssize_t);
 
 static int
-expand(dynarr *arr)
+expand(struct dynarr *arr)
 {
 	const size_t capacity = arr->capacity * 2;
 	void *data = realloc(arr->data, capacity);
@@ -34,7 +34,7 @@ expand(dynarr *arr)
 }
 
 static void
-move(dynarr *arr, size_t idx, ssize_t direction)
+move(struct dynarr *arr, size_t idx, ssize_t direction)
 {
 	const void *src = dynarr_get(arr, idx);
 	void *dest = dynarr_get(arr, idx + direction);
@@ -49,20 +49,20 @@ move(dynarr *arr, size_t idx, ssize_t direction)
 }
 
 void
-dynarr_free(dynarr *arr)
+dynarr_free(struct dynarr *arr)
 {
 	free(arr->data);
 	free(arr);
 }
 
 void *
-dynarr_get(const dynarr *arr, size_t idx)
+dynarr_get(const struct dynarr *arr, size_t idx)
 {
 	return (char *)arr->data + idx * arr->size;
 }
 
 int
-dynarr_insert(dynarr *arr, size_t idx, const void *obj)
+dynarr_insert(struct dynarr *arr, size_t idx, const void *obj)
 {
 	static const ssize_t direction = 1;
 
@@ -77,10 +77,10 @@ dynarr_insert(dynarr *arr, size_t idx, const void *obj)
 	return 1;
 }
 
-dynarr *
+struct dynarr *
 dynarr_new(size_t size)
 {
-	dynarr *arr = malloc(sizeof(dynarr));
+	struct dynarr *arr = malloc(sizeof(struct dynarr));
 	if (!arr)
 		return NULL;
 
@@ -97,7 +97,7 @@ dynarr_new(size_t size)
 }
 
 int
-dynarr_pop(dynarr *arr)
+dynarr_pop(struct dynarr *arr)
 {
 	if (arr->len == 0)
 		return 0;
@@ -108,7 +108,7 @@ dynarr_pop(dynarr *arr)
 }
 
 int
-dynarr_push(dynarr *arr, const void *obj)
+dynarr_push(struct dynarr *arr, const void *obj)
 {
 	const size_t idx = arr->len;
 
@@ -121,7 +121,7 @@ dynarr_push(dynarr *arr, const void *obj)
 }
 
 void
-dynarr_remove(dynarr *arr, size_t idx)
+dynarr_remove(struct dynarr *arr, size_t idx)
 {
 	static const ssize_t direction = -1;
 
@@ -133,14 +133,14 @@ dynarr_remove(dynarr *arr, size_t idx)
 }
 
 void
-dynarr_reset(dynarr *arr, size_t idx)
+dynarr_reset(struct dynarr *arr, size_t idx)
 {
 	void *dest = dynarr_get(arr, idx);
 	memset(dest, 0, arr->size);
 }
 
 void
-dynarr_set(dynarr *arr, size_t idx, const void *obj)
+dynarr_set(struct dynarr *arr, size_t idx, const void *obj)
 {
 	void *dest = dynarr_get(arr, idx);
 	memcpy(dest, obj, arr->size);
