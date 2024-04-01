@@ -3,6 +3,8 @@ AR = ar
 RANLIB = ranlib
 CTAGS = ctags
 
+CFLAGS = -g -Wall -Wextra
+
 PREFIX = /usr/local
 LIBDIR = $(PREFIX)/lib
 INCDIR = $(PREFIX)/include
@@ -37,4 +39,4 @@ tags: $(SRC) $(HDR)
 
 .SUFFIXES: .c .o
 .c.o:
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c -o $@ $<
