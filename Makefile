@@ -15,15 +15,25 @@ OBJ = dynarr.o
 HDR = dynarr.h
 SRC = $(OBJ:.o=.c)
 
+TESTBIN = run-tests
+TESTOBJ = test/main.o test/munit.o
+
 all: $(LIB)
-dynarr.o: dynarr.h
+$(OBJ): dynarr.h
+$(TESTOBJ): dynarr.h test/munit.h
 
 $(LIB): $(OBJ)
 	$(AR) -rc $@ $(OBJ)
 	-$(RANLIB) $@
 
+$(TESTBIN): $(TESTOBJ) $(LIB)
+	$(CC) $(LDFLAGS) -o $@ $(TESTOBJ) $(LIB)
+
+check: $(TESTBIN)
+	./$(TESTBIN)
+
 clean:
-	rm -f $(LIB) *.o
+	rm -f $(LIB) *.o $(TESTBIN) test/*.o tags
 
 install: $(LIB) $(HDR)
 	mkdir -p $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCDIR)
