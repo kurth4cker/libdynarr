@@ -1,33 +1,25 @@
-CC = cc
-AR = ar
-RANLIB = ranlib
-CTAGS = ctags
-
-CFLAGS = -g -Wall -Wextra
-
-PREFIX = /usr/local
-LIBDIR = $(PREFIX)/lib
-INCDIR = $(PREFIX)/include
+include config.mk
 
 LIB = libdynarr.a
 OBJ = dynarr.o
 
-HDR = dynarr.h
-SRC = $(OBJ:.o=.c)
-
-TESTBIN = run-tests
-TESTOBJ = test/main.o test/munit.o
+HEADER = dynarr.h
 
 all: $(LIB)
+
 $(OBJ): dynarr.h
-$(TESTOBJ): dynarr.h test/munit.h
 
 $(LIB): $(OBJ)
 	$(AR) -rc $@ $(OBJ)
 	-$(RANLIB) $@
 
+TESTBIN = run-tests
+TESTOBJ = test/main.o test/munit.o
+
+$(TESTOBJ): dynarr.h test/munit.h
+
 $(TESTBIN): $(TESTOBJ) $(LIB)
-	$(CC) $(LDFLAGS) -o $@ $(TESTOBJ) $(LIB)
+	$(CC) $(TEST_LDFLAGS) -o $@ $(TESTOBJ) $(LIB) $(TEST_LDLIBS)
 
 check: $(TESTBIN)
 	./$(TESTBIN)
@@ -35,18 +27,15 @@ check: $(TESTBIN)
 clean:
 	rm -f $(LIB) *.o $(TESTBIN) test/*.o tags
 
-install: $(LIB) $(HDR)
-	mkdir -p $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCDIR)
+install: $(LIB) $(HEADER)
+	mkdir -p $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCLUDEDIR)
 	cp -f $(LIB) $(DESTDIR)$(LIBDIR)
-	cp -f $(HDR) $(DESTDIR)$(INCDIR)
+	cp -f $(HEADER) $(DESTDIR)$(INCLUDEDIR)
 
 uninstall:
 	rm -f $(DESTDIR)$(LIBDIR)/$(LIB)
-	rm -f $(DESTDIR)$(INCDIR)/$(HDR)
-
-tags: $(SRC) $(HDR)
-	$(CTAGS) $(SRC) $(HDR)
+	rm -f $(DESTDIR)$(INCLUDEDIR)/$(HEADER)
 
 .SUFFIXES: .c .o
 .c.o:
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(DYNARR_CFLAGS) -c -o $@ $<

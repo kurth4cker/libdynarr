@@ -56,14 +56,14 @@ test_push(const MunitParameter *params, void *fixture)
 	dynarr_push(arr, &i);
 	assert_size(arr->len, ==, 2);
 	assert_int(*(int *)arr->data, ==, 42);
-	assert_int(*(int *)(arr->data + arr->size), ==, 43);
+	assert_int(*(int *)((char *)arr->data + arr->size), ==, 43);
 
 	i = 44;
 	dynarr_push(arr, &i);
 	assert_size(arr->len, ==, 3);
 	assert_int(*(int *)arr->data, ==, 42);
-	assert_int(*(int *)(arr->data + arr->size), ==, 43);
-	assert_int(*(int *)(arr->data + 2 * arr->size), ==, 44);
+	assert_int(*(int *)((char *)arr->data + arr->size), ==, 43);
+	assert_int(*(int *)((char *)arr->data + 2 * arr->size), ==, 44);
 
 	free(arr->data);
 	free(arr);
