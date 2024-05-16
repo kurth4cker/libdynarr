@@ -64,6 +64,7 @@ dynarr_free(struct dynarr *arr)
 void *
 dynarr_get(const struct dynarr *arr, size_t idx)
 {
+	assert(CAPACITY_OK(arr, idx));
 	return (char *)arr->data + idx * arr->size;
 }
 
@@ -152,6 +153,7 @@ dynarr_remove(struct dynarr *arr, size_t idx)
 void
 dynarr_set(struct dynarr *arr, size_t idx, const void *obj)
 {
+	assert(CAPACITY_OK(arr, idx));
 	void *dest = dynarr_get(arr, idx);
 	memcpy(dest, obj, arr->size);
 }
