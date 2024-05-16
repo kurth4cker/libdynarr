@@ -14,7 +14,6 @@ void dynarr_free(struct dynarr *);
 
 void *dynarr_get(const struct dynarr *, size_t);
 void dynarr_set(struct dynarr *, size_t, const void *);
-void dynarr_reset(struct dynarr *, size_t);
 
 int dynarr_push(struct dynarr *, const void *);
 int dynarr_pop(struct dynarr *);

@@ -115,7 +115,10 @@ dynarr_pop(struct dynarr *arr)
 		return 0;
 
 	arr->len--;
-	dynarr_reset(arr, arr->len);
+
+	void *obj = dynarr_get(arr, arr->len);
+	memset(obj, 0, arr->size);
+
 	return 1;
 }
 
@@ -141,14 +144,9 @@ dynarr_remove(struct dynarr *arr, size_t idx)
 	assert(CAPACITY_OK(arr, idx));
 
 	move(arr, idx + 1, direction);
-	dynarr_reset(arr, arr->len);
-}
 
-void
-dynarr_reset(struct dynarr *arr, size_t idx)
-{
-	void *dest = dynarr_get(arr, idx);
-	memset(dest, 0, arr->size);
+	void *obj = dynarr_get(arr, arr->len);
+	memset(obj, 0, arr->size);
 }
 
 void
