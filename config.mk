@@ -7,12 +7,12 @@ AR = ar
 RANLIB = ranlib
 CTAGS = ctags
 
-CFLAGS = -g -pedantic -pedantic-errors -Wall -Wextra
+# CFLAGS = -g -pedantic -pedantic-errors -Wall -Wextra
 LDFLAGS =
 LDLIBS =
 
 
-DYNARR_CFLAGS = $(CFLAGS)
+DYNARR_CFLAGS = -std=c23 $(CFLAGS)
 
 TEST_CFLAGS = $(CFLAGS)
 TEST_LDFLAGS = $(LDFLAGS)
