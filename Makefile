@@ -1,31 +1,34 @@
-include config.mk
+PREFIX = /usr/local
+LIBDIR = $(PREFIX)/lib
+INCLUDEDIR = $(PREFIX)/include
+
+CC = cc
+AR = ar
+RANLIB = ranlib
+CTAGS = ctags
+
+CFLAGS = -g -pedantic
+LDFLAGS =
+LDLIBS =
+
+
+DYNARR_CFLAGS = -std=c23 $(CFLAGS)
 
 LIB = libdynarr.a
-OBJ = dynarr.o
+OBJECTS = dynarr.o
 
 HEADER = dynarr.h
 
 all: $(LIB)
 
-$(OBJ): dynarr.h
+$(OBJECTS): $(HEADER)
 
-$(LIB): $(OBJ)
-	$(AR) -rc $@ $(OBJ)
+$(LIB): $(OBJECTS)
+	$(AR) -rc $@ $(OBJECTS)
 	-$(RANLIB) $@
 
-TESTBIN = run-tests
-TESTOBJ = test/main.o test/munit.o
-
-$(TESTOBJ): dynarr.h test/munit.h
-
-$(TESTBIN): $(TESTOBJ) $(LIB)
-	$(CC) $(TEST_LDFLAGS) -o $@ $(TESTOBJ) $(LIB) $(TEST_LDLIBS)
-
-check: $(TESTBIN)
-	./$(TESTBIN)
-
 clean:
-	rm -f $(LIB) *.o $(TESTBIN) test/*.o tags
+	rm -f $(LIB) *.o test/*.o tags
 
 install: $(LIB) $(HEADER)
 	mkdir -p $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCLUDEDIR)

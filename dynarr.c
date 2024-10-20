@@ -12,7 +12,7 @@
 #define CAPACITY_OK(arr, idx) ((idx) < (arr)->capacity)
 #define LENGTH_OK(arr, idx) ((idx) < (arr)->len)
 
-static struct dynarr initial_array = {
+static const struct dynarr initial_array = {
 	.data = NULL,
 	.size = 0,
 	.len = 0,
