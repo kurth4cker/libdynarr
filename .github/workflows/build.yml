@@ -20,9 +20,9 @@ jobs:
         run: make
 
 
-  void-linux:
+  void-glibc:
     runs-on: ubuntu-latest
-    container: voidlinux/voidlinux-glibc:latest
+    container: ghcr.io/void-linux/void-glibc:latest
     steps:
       - name: Install dependencies
         run: xbps-install -Sy base-devel
