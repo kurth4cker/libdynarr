@@ -1,0 +1,20 @@
+name: C Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: debian:latest
+
+    steps:
+      - name: Install Dependencies
+        run: |
+          apt update
+          apt install -y make gcc
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: make
