@@ -3,6 +3,21 @@ name: C Build
 on: [push, pull_request]
 
 jobs:
+  alpine:
+    runs-on: ubuntu-latest
+    container: alpine:latest
+
+    steps:
+      - name: Install Dependencies
+        run: apk add gcc make
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - Name: Build
+        run: make
+
+
   debian:
     runs-on: ubuntu-latest
     container: debian:latest
