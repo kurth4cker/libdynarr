@@ -25,7 +25,7 @@ jobs:
     container: ghcr.io/void-linux/void-glibc:latest
     steps:
       - name: Install dependencies
-        run: xbps-install -Sy base-devel
+        run: xbps-install -Sy git base-devel
 
       - name: Checkout repository
         uses: actions/checkout@v4
