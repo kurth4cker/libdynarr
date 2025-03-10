@@ -3,7 +3,7 @@ name: C Build
 on: [push, pull_request]
 
 jobs:
-  build:
+  debian:
     runs-on: ubuntu-latest
     container: debian:latest
 
@@ -14,6 +14,20 @@ jobs:
           apt install -y make gcc
 
       - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: make
+
+
+  void-glibc:
+    runs-on: ubuntu-latest
+    container: ghcr.io/void-linux/void-glibc:latest
+    steps:
+      - name: Install dependencies
+        run: xbps-install -Sy git make gcc
+
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Build
