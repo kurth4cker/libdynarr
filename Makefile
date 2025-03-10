@@ -12,7 +12,7 @@ LDFLAGS =
 LDLIBS =
 
 
-DYNARR_CFLAGS = -std=c23 $(CFLAGS)
+DYNARR_CFLAGS = -std=c11 $(CFLAGS)
 
 LIB = libdynarr.a
 OBJECTS = dynarr.o
