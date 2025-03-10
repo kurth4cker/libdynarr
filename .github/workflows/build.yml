@@ -8,6 +8,11 @@ jobs:
     container: debian:latest
 
     steps:
+      - name: Install Dependencies
+        run: |
+          apt update
+          apt install -y build-essential
+
       - name: Checkout
         uses: actions/checkout@v4
 
