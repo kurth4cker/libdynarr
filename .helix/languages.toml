@@ -1,5 +1,0 @@
-[[language]]
-name = "c"
-scope = "source.c"
-file-types = ["c"]
-indent = { tab-width = 8, unit = "\t" }
