@@ -13,15 +13,8 @@
 #define CAPACITY_OK(arr, idx) ((idx) < (arr)->capacity)
 #define LENGTH_OK(arr, idx) ((idx) < (arr)->len)
 
-static const Dynarr initial_array = {
-	.data = NULL,
-	.size = 0,
-	.len = 0,
-	.capacity = 64,
-};
-
-static bool expand(Dynarr *);
-static void move(Dynarr *, size_t, ssize_t);
+static bool expand(Dynarr *arr);
+static void move(Dynarr *arr, size_t idx, ssize_t direction);
 static void set(const Dynarr *arr, size_t idx, const void *obj);
 
 static bool
@@ -106,18 +99,19 @@ dynarr_length_ok(const Dynarr *arr, size_t idx)
 Dynarr *
 dynarr_new(size_t size)
 {
+	const size_t default_capacity = 64;
 	Dynarr *arr = malloc(sizeof(Dynarr));
 	if (!arr)
 		return NULL;
 
-	arr->data = calloc(initial_array.capacity, size);
+	arr->data = calloc(default_capacity, size);
 	if (!arr->data) {
 		free(arr);
 		return NULL;
 	}
 
-	arr->capacity = initial_array.capacity;
-	arr->len = initial_array.len;
+	arr->capacity = default_capacity;
+	arr->len = 0;
 	arr->size = size;
 	return arr;
 }

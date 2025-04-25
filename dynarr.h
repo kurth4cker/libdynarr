@@ -9,16 +9,16 @@ typedef struct {
 	void *data;
 } Dynarr;
 
-Dynarr *dynarr_new(size_t);
-void dynarr_free(Dynarr *);
+Dynarr *dynarr_new(size_t itemsize);
+void dynarr_free(Dynarr *arr);
 
-void *dynarr_get(const Dynarr *, size_t);
+void *dynarr_get(const Dynarr *arr, size_t idx);
 
-bool dynarr_push(Dynarr *, const void *);
-bool dynarr_pop(Dynarr *);
+bool dynarr_push(Dynarr *arr, const void *obj);
+bool dynarr_pop(Dynarr *arr);
 
-bool dynarr_insert(Dynarr *, size_t, const void *);
-void dynarr_remove(Dynarr *, size_t);
+bool dynarr_insert(Dynarr *arr, size_t idx, const void *obj);
+void dynarr_remove(Dynarr *arr, size_t idx);
 
-bool dynarr_capacity_ok(const Dynarr *, size_t);
-bool dynarr_length_ok(const Dynarr *, size_t);
+bool dynarr_capacity_ok(const Dynarr *arr, size_t idx);
+bool dynarr_length_ok(const Dynarr *arr, size_t idx);
