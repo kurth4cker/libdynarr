@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// SPDX-FileCopyrightText: 2024 kurth4cker <kurth4cker@gmail.com>
+// SPDX-FileCopyrightText: 2024-2025 kurth4cker <kurth4cker@gmail.com>
 
 #include <sys/types.h>
 
