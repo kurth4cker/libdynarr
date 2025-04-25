@@ -13,18 +13,19 @@
 #define CAPACITY_OK(arr, idx) ((idx) < (arr)->capacity)
 #define LENGTH_OK(arr, idx) ((idx) < (arr)->len)
 
-static const struct dynarr initial_array = {
+static const Dynarr initial_array = {
 	.data = NULL,
 	.size = 0,
 	.len = 0,
 	.capacity = 64,
 };
 
-static bool expand(struct dynarr *);
-static void move(struct dynarr *, size_t, ssize_t);
+static bool expand(Dynarr *);
+static void move(Dynarr *, size_t, ssize_t);
+static void set(const Dynarr *arr, size_t idx, const void *obj);
 
 static bool
-expand(struct dynarr *arr)
+expand(Dynarr *arr)
 {
 	const size_t capacity = arr->capacity * 2;
 	void *data = realloc(arr->data, capacity);
@@ -38,7 +39,7 @@ expand(struct dynarr *arr)
 }
 
 static void
-move(struct dynarr *arr, size_t idx, ssize_t direction)
+move(Dynarr *arr, size_t idx, ssize_t direction)
 {
 	const void *src = dynarr_get(arr, idx);
 	void *dest = dynarr_get(arr, idx + direction);
@@ -52,28 +53,36 @@ move(struct dynarr *arr, size_t idx, ssize_t direction)
 	arr->len += direction;
 }
 
+static void
+set(const Dynarr *arr, size_t idx, const void *obj)
+{
+	assert(CAPACITY_OK(arr, idx));
+	void *dest = dynarr_get(arr, idx);
+	memcpy(dest, obj, arr->size);
+}
+
 bool
-dynarr_capacity_ok(const struct dynarr *arr, size_t idx)
+dynarr_capacity_ok(const Dynarr *arr, size_t idx)
 {
 	return CAPACITY_OK(arr, idx);
 }
 
 void
-dynarr_free(struct dynarr *arr)
+dynarr_free(Dynarr *arr)
 {
 	free(arr->data);
 	free(arr);
 }
 
 void *
-dynarr_get(const struct dynarr *arr, size_t idx)
+dynarr_get(const Dynarr *arr, size_t idx)
 {
 	assert(CAPACITY_OK(arr, idx));
 	return (char *)arr->data + idx * arr->size;
 }
 
 bool
-dynarr_insert(struct dynarr *arr, size_t idx, const void *obj)
+dynarr_insert(Dynarr *arr, size_t idx, const void *obj)
 {
 	static const ssize_t direction = 1;
 
@@ -84,20 +93,20 @@ dynarr_insert(struct dynarr *arr, size_t idx, const void *obj)
 		return false;
 
 	move(arr, idx, direction);
-	dynarr_set(arr, idx, obj);
+	set(arr, idx, obj);
 	return true;
 }
 
 bool
-dynarr_length_ok(const struct dynarr *arr, size_t idx)
+dynarr_length_ok(const Dynarr *arr, size_t idx)
 {
 	return LENGTH_OK(arr, idx);
 }
 
-struct dynarr *
+Dynarr *
 dynarr_new(size_t size)
 {
-	struct dynarr *arr = malloc(sizeof(struct dynarr));
+	Dynarr *arr = malloc(sizeof(Dynarr));
 	if (!arr)
 		return NULL;
 
@@ -114,7 +123,7 @@ dynarr_new(size_t size)
 }
 
 bool
-dynarr_pop(struct dynarr *arr)
+dynarr_pop(Dynarr *arr)
 {
 	if (arr->len == 0)
 		return false;
@@ -128,20 +137,20 @@ dynarr_pop(struct dynarr *arr)
 }
 
 bool
-dynarr_push(struct dynarr *arr, const void *obj)
+dynarr_push(Dynarr *arr, const void *obj)
 {
 	const size_t idx = arr->len;
 
 	if (!CAPACITY_OK(arr, idx) && !expand(arr))
 		return false;
 
-	dynarr_set(arr, idx, obj);
+	set(arr, idx, obj);
 	arr->len++;
 	return true;
 }
 
 void
-dynarr_remove(struct dynarr *arr, size_t idx)
+dynarr_remove(Dynarr *arr, size_t idx)
 {
 	static const ssize_t direction = -1;
 
@@ -152,12 +161,4 @@ dynarr_remove(struct dynarr *arr, size_t idx)
 
 	void *obj = dynarr_get(arr, arr->len);
 	memset(obj, 0, arr->size);
-}
-
-void
-dynarr_set(struct dynarr *arr, size_t idx, const void *obj)
-{
-	assert(CAPACITY_OK(arr, idx));
-	void *dest = dynarr_get(arr, idx);
-	memcpy(dest, obj, arr->size);
 }
