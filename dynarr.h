@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DYNARR_H_
+#define DYNARR_H_
 
 #include <stddef.h>
 
@@ -22,3 +23,5 @@ void dynarr_remove(Dynarr *arr, size_t idx);
 
 bool dynarr_capacity_ok(const Dynarr *arr, size_t idx);
 bool dynarr_length_ok(const Dynarr *arr, size_t idx);
+
+#endif // DYNARR_H_
