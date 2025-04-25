@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "dynarr.h"
 
@@ -19,10 +20,10 @@ static const struct dynarr initial_array = {
 	.capacity = 64,
 };
 
-static int expand(struct dynarr *);
+static bool expand(struct dynarr *);
 static void move(struct dynarr *, size_t, ssize_t);
 
-static int
+static bool
 expand(struct dynarr *arr)
 {
 	const size_t capacity = arr->capacity * 2;
@@ -51,7 +52,7 @@ move(struct dynarr *arr, size_t idx, ssize_t direction)
 	arr->len += direction;
 }
 
-int
+bool
 dynarr_capacity_ok(const struct dynarr *arr, size_t idx)
 {
 	return CAPACITY_OK(arr, idx);
@@ -71,7 +72,7 @@ dynarr_get(const struct dynarr *arr, size_t idx)
 	return (char *)arr->data + idx * arr->size;
 }
 
-int
+bool
 dynarr_insert(struct dynarr *arr, size_t idx, const void *obj)
 {
 	static const ssize_t direction = 1;
@@ -80,14 +81,14 @@ dynarr_insert(struct dynarr *arr, size_t idx, const void *obj)
 		return dynarr_push(arr, obj);
 
 	if (!CAPACITY_OK(arr, arr->len + direction) && !expand(arr))
-		return 0;
+		return false;
 
 	move(arr, idx, direction);
 	dynarr_set(arr, idx, obj);
-	return 1;
+	return true;
 }
 
-int
+bool
 dynarr_length_ok(const struct dynarr *arr, size_t idx)
 {
 	return LENGTH_OK(arr, idx);
@@ -112,31 +113,31 @@ dynarr_new(size_t size)
 	return arr;
 }
 
-int
+bool
 dynarr_pop(struct dynarr *arr)
 {
 	if (arr->len == 0)
-		return 0;
+		return false;
 
 	arr->len--;
 
 	void *obj = dynarr_get(arr, arr->len);
 	memset(obj, 0, arr->size);
 
-	return 1;
+	return true;
 }
 
-int
+bool
 dynarr_push(struct dynarr *arr, const void *obj)
 {
 	const size_t idx = arr->len;
 
 	if (!CAPACITY_OK(arr, idx) && !expand(arr))
-		return 0;
+		return false;
 
 	dynarr_set(arr, idx, obj);
 	arr->len++;
-	return 1;
+	return true;
 }
 
 void
