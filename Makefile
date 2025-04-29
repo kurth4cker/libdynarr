@@ -5,9 +5,8 @@ INCLUDEDIR = $(PREFIX)/include
 CC = cc
 AR = ar
 RANLIB = ranlib
-CTAGS = ctags
 
-CFLAGS = -g -pedantic
+CFLAGS = -g -pedantic -Wall -Wextra -Werror
 LDFLAGS =
 LDLIBS =
 
