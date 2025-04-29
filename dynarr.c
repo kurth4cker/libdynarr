@@ -112,14 +112,16 @@ dynarr_new(size_t size)
 	}
 
 	arr->capacity = default_capacity;
+	arr->size = size;
 	return arr;
 }
 
 bool
 dynarr_pop(Dynarr *arr)
 {
-	if (arr->len == 0)
+	if (arr->len == 0) {
 		return false;
+	}
 
 	arr->len--;
 
@@ -134,8 +136,9 @@ dynarr_push(Dynarr *arr, const void *obj)
 {
 	const size_t idx = arr->len;
 
-	if (!CAPACITY_OK(arr, idx) && !expand(arr))
+	if (!CAPACITY_OK(arr, idx) && !expand(arr)) {
 		return false;
+	}
 
 	set(arr, idx, obj);
 	arr->len++;

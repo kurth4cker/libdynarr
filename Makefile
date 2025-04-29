@@ -16,9 +16,13 @@ DYNARR_CFLAGS = -std=c11 $(CFLAGS)
 LIB = libdynarr.a
 OBJECTS = dynarr.o
 
+EXAMPLE_PROGRAM = example
+
 HEADER = dynarr.h
 
-all: $(LIB)
+all: $(LIB) $(EXAMPLE_PROGRAM)
+
+$(EXAMPLE_PROGRAM): $(LIB)
 
 $(OBJECTS): $(HEADER)
 
@@ -27,7 +31,7 @@ $(LIB): $(OBJECTS)
 	-$(RANLIB) $@
 
 clean:
-	rm -f $(LIB) *.o test/*.o tags
+	rm -f $(LIB) $(EXAMPLE_PROGRAM) *.o
 
 install: $(LIB) $(HEADER)
 	mkdir -p $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCLUDEDIR)
@@ -41,3 +45,6 @@ uninstall:
 .SUFFIXES: .c .o
 .c.o:
 	$(CC) $(DYNARR_CFLAGS) -c -o $@ $<
+
+.c:
+	$(CC) $(DYNARR_CFLAGS) $(LDFLAGS) -o $@ $< $(LIB) $(LDLIBS)

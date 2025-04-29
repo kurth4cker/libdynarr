@@ -17,6 +17,9 @@ jobs:
       - name: Build
         run: make
 
+      - name: Run Example
+        run: ./example
+
 
   debian:
     runs-on: ubuntu-latest
@@ -34,6 +37,9 @@ jobs:
       - name: Build
         run: make
 
+      - name: Run Example
+        run: ./example
+
 
   void-glibc:
     runs-on: ubuntu-latest
@@ -47,3 +53,6 @@ jobs:
 
       - name: Build
         run: make
+
+      - name: Run Example
+        run: ./example
