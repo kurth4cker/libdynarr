@@ -2,6 +2,7 @@
 #define DYNARR_H_
 
 #include <stddef.h>
+#include <stdbool.h>
 
 typedef struct {
 	size_t size; /* sizeof each element */
