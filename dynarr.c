@@ -100,9 +100,10 @@ Dynarr *
 dynarr_new(size_t size)
 {
 	const size_t default_capacity = 64;
-	Dynarr *arr = malloc(sizeof(Dynarr));
-	if (!arr)
+	Dynarr *arr = calloc(1, sizeof(Dynarr)); // zero initialization
+	if (!arr) {
 		return NULL;
+	}
 
 	arr->data = calloc(default_capacity, size);
 	if (!arr->data) {
@@ -111,8 +112,6 @@ dynarr_new(size_t size)
 	}
 
 	arr->capacity = default_capacity;
-	arr->len = 0;
-	arr->size = size;
 	return arr;
 }
 
