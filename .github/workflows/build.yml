@@ -17,13 +17,16 @@ jobs:
 
     steps:
       - name: Install Dependencies
-        run: apk add gcc make libc-dev
+        run: apk add gcc libc-dev
 
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Bootstrap nob
+        run: cc -o nob nob.c
+
       - name: Build
-        run: make
+        run: ./nob
 
       - name: Run Example
         run: ./example
@@ -42,8 +45,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Bootstrap nob
+        run: cc -o nob nob.c
+
       - name: Build
-        run: make
+        run: ./nob
 
       - name: Run Example
         run: ./example
@@ -59,8 +65,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Bootstrap nob
+        run: cc -o nob nob.c
+
       - name: Build
-        run: make
+        run: ./nob
 
       - name: Run Example
         run: ./example
