@@ -4,6 +4,9 @@
 #include <stddef.h>
 #include <stdbool.h>
 
+// TODO(#5): Maybe a new type called Array
+
+// TODO(#6): Add comment documentation of Dynarr
 typedef struct {
 	size_t size; /* sizeof each element */
 	size_t len; /* number of elements */
