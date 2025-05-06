@@ -16,7 +16,6 @@ cc_and_cflags(Nob_Cmd *cmd)
 	nob_cmd_append(cmd, "-g");
 }
 
-// TODO(#8): add install/uninstall support
 int
 main(int argc, char **argv)
 {
