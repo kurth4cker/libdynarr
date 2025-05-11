@@ -16,12 +16,6 @@ jobs:
     container: ${{ matrix.image }}
     strategy:
       matrix:
-        os:
-          - "alpine"
-          - "debian"
-        cc:
-          - "gcc"
-          - "clang"
         include:
           - os: alpine
             image: alpine:latest
