@@ -1,0 +1,64 @@
+name: C
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.os }} / ${{ matrix.cc }}
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image }}
+    strategy:
+      matrix:
+        os:
+          - "alpine"
+          - "debian"
+          - "void-glibc"
+        cc:
+          - "gcc"
+          - "clang"
+        include:
+          - os: alpine
+            image: alpine:latest
+            install: apk add libc-dev gcc
+          - os: debian
+            cc: gcc
+            image: debian:latest
+            install: apt update && apt install -y gcc
+          - os: debian
+            cc: clang
+            image: debian:latest
+            install: apt update && apt install -y clang
+          - os: void-glibc
+            image: ghcr.io/void-linux/void-glibc:latest
+            install: xbps-install -Sy git gcc
+        exclude:
+          - os: alpine
+            cc: clang
+          - os: void-glibc
+            cc: clang
+
+    env:
+      CC: ${{ matrix.cc }}
+
+    steps:
+      - name: Install Dependencies
+        run: ${{ matrix.install }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bootstrap nob
+        run: $CC -Werror -o nob nob.c
+
+      - name: Build
+        run: ./nob
+
+      - name: Run Example
+        run: ./example
