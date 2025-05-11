@@ -8,9 +8,26 @@
 #include "nob.h"
 
 static void
+cc(Nob_Cmd *cmd)
+{
+	char *cc = getenv("CC");
+	if (cc != NULL) {
+		nob_cmd_append(cmd, cc);
+	} else {
+#if defined(__clang__)
+		nob_cmd_append(cmd, "clang");
+#elif defined(__GNUC__)
+		nob_cmd_append(cmd, "gcc");
+#else
+		nob_cmd_append(cmd, "cc");
+#endif
+	}
+}
+
+static void
 cc_and_cflags(Nob_Cmd *cmd)
 {
-	nob_cmd_append(cmd, "cc", "-std=c17");
+	cc(cmd);
 	nob_cmd_append(cmd, "-pedantic");
 	nob_cmd_append(cmd, "-Wall", "-Wextra", "-Werror");
 	nob_cmd_append(cmd, "-g");
