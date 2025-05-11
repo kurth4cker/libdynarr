@@ -18,15 +18,20 @@ jobs:
       matrix:
         include:
           - os: alpine
+            cc: gcc
             image: alpine:latest
             install: apk add libc-dev gcc
+
           - os: alpine
+            cc: clang
             image: alpine:latest
             install: apk add libc-dev clang
+
           - os: debian
             cc: gcc
             image: debian:latest
             install: apt update && apt install -y gcc
+
           - os: debian
             cc: clang
             image: debian:latest
