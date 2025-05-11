@@ -19,7 +19,6 @@ jobs:
         os:
           - "alpine"
           - "debian"
-          - "void-glibc"
         cc:
           - "gcc"
           - "clang"
@@ -27,6 +26,9 @@ jobs:
           - os: alpine
             image: alpine:latest
             install: apk add libc-dev gcc
+          - os: alpine
+            image: alpine:latest
+            install: apk add libc-dev clang
           - os: debian
             cc: gcc
             image: debian:latest
@@ -35,14 +37,6 @@ jobs:
             cc: clang
             image: debian:latest
             install: apt update && apt install -y clang
-          - os: void-glibc
-            image: ghcr.io/void-linux/void-glibc:latest
-            install: xbps-install -Sy git gcc
-        exclude:
-          - os: alpine
-            cc: clang
-          - os: void-glibc
-            cc: clang
 
     env:
       CC: ${{ matrix.cc }}
